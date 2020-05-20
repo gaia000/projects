@@ -29,10 +29,12 @@ public class Board {
 	private final WhitePlayer whitePlayer;
 	private final BlackPlayer blackPlayer;
 	private final Player currentPlayer;
+	private final Pawn enPassantPawn;
 
 
 	private Board(final Builder builder) {
 			this.gameBoard = createGameBoard(builder);
+			this.enPassantPawn = builder.enPassantPawn;
 			this.whitePieces = caculateActivePieces(this.gameBoard, Alliance.WHITE);
 			this.blackPieces = caculateActivePieces(this.gameBoard, Alliance.BLACK); 
 			final Collection<Move> whiteStandardLegaltsMoves = caculateLegalMoves(this.whitePieces);
@@ -66,6 +68,10 @@ public class Board {
 	
 	public Player currentPlayer() {
 		return this.currentPlayer;
+	}
+	
+	public Pawn getEnPassantPawn() {
+		return this.enPassantPawn;
 	}
 	
 	public Collection<Piece> getBlackPieces() {
