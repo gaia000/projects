@@ -9,7 +9,7 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
-import com.chess.engine.board.Move.AttackMove;
+import com.chess.engine.board.Move.*;
 import com.chess.engine.board.Move.MajorMove;
 import com.google.common.collect.ImmutableList;
 
@@ -17,8 +17,15 @@ public class Rook extends Piece {
 	
 	private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATE = { -8,-1,1,8 };
 
-	public Rook(Alliance pieceAlliance, int piecePosition) {
-		super(PieceType.ROOK, pieceAlliance,piecePosition);
+	public Rook(final Alliance pieceAlliance, 
+			    final int piecePosition) {
+		super(PieceType.ROOK, pieceAlliance,piecePosition, true);
+	}
+	
+	public Rook(final Alliance pieceAlliance,
+			    final int piecePosition,
+			    final boolean isFirstMove) {
+		super(PieceType.ROOK, pieceAlliance,piecePosition, isFirstMove);
 	}
 
 	@Override
@@ -45,7 +52,7 @@ public class Rook extends Piece {
 							final Piece pieceAtDestination = candidateDestinationTile.getPiece();
 							final Alliance pieceAlliance= pieceAtDestination.getPieceAlliance();
 							if (this.pieceAlliance!= pieceAlliance) {
-								legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));	
+								legalMoves.add(new MajorAttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));	
 							}
 							break;
 						}
